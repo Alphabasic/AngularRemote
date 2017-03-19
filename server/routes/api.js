@@ -1,26 +1,21 @@
 const express = require('express');
 const router = express.Router();
+const Mongo = require('MongoDB').MongoClient;
 
-// declare axios for making http requests
-const axios = require('axios');
-const API = 'https://jsonplaceholder.typicode.com';
+const conn = 'mongodb://localhost:27017/MightyFine';
 
 /* GET api listing. */
 router.get('/', (req, res) => {
-  res.send('api works');
+  res.status(200);
 });
 
-// Get all posts
 router.get('/posts', (req, res) => {
-  // Get posts from the mock api
-  // This should ideally be replaced with a service that connects to MongoDB
-  axios.get(`${API}/posts`)
-    .then(posts => {
-      res.status(200).json(posts.data);
-    })
-    .catch(error => {
-      res.status(500).send(error)
-    });
-});
+  Mongo.connect(conn)
+    .then( db => db.collection('posts').find().toArray())
+    .then( 
+        items => res.status(200).json(items), 
+        err => res.status(500).send(err)
+      );
+})
 
 module.exports = router;
