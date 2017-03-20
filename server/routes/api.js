@@ -29,4 +29,16 @@ router.get('/posts/:post_id', (req, res) => {
     .catch(err => res.status(500).send(err))
 })
 
+router.put('/posts/:post_id', (req, res) => {
+  Mongo.connect(conn)
+    .then( db => db.collection('posts').update(
+        {"_id": new ObjectId(req.params.post_id)},
+        {
+          title: req.params.title || "",
+          body: req.params.body || ""
+        },
+        { upsert: true }
+      ))
+})
+
 module.exports = router;
