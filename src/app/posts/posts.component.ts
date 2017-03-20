@@ -26,9 +26,4 @@ export class PostsComponent implements OnInit {
 			.getAllPosts()
 			.subscribe(posts => {this.posts = posts;})
 	}
-
-	save(): void {
-		// console.log(this)
-		this.postsService.update(this.post)
-	}
 }

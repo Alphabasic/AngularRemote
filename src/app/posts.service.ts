@@ -27,7 +27,7 @@ export class PostsService {
       .catch(this.handleError);
   }
   update(post: Post): Promise<Post> {
-    const url = `${this.postUrl}/${post.id}`
+    const url = `${this.postUrl}/${post._id}`
     return this.http.put(url, JSON.stringify(post), {headers: this.headers})
             .toPromise()
             .then(() => post)

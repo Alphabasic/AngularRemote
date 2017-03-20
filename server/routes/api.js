@@ -34,8 +34,8 @@ router.put('/posts/:post_id', (req, res) => {
     .then( db => db.collection('posts').update(
         {"_id": new ObjectId(req.params.post_id)},
         {
-          title: req.params.title || "",
-          body: req.params.body || ""
+          title: req.body.title || "",
+          body: req.body.body || ""
         },
         { upsert: true }
       ))

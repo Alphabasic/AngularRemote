@@ -22,17 +22,17 @@ export class PostComponent implements OnInit {
 	) {}
 
 	ngOnInit() {
-		this.getPosts();
+		this.getPost();
 	}
 
-	getPosts(): void {
+	getPost(): void {
    	 this.route.params
-      .switchMap((params: Params) => this.postsService.getPost(+params['id']))
+      .switchMap((params: Params) => this.postsService.getPost(+params['_id']))
       .subscribe(post => this.post = post);
 	}
 
 	save(): void {
-		// console.log(this)
+		console.log(this.post)
 		this.postsService.update(this.post)
 	}
 }
