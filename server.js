@@ -6,12 +6,10 @@ const bodyParser = require('body-parser');
 
 // Get our API routes
 const api = require('./server/routes/api');
-
 const app = express();
 
 // Parsers for POST data
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Point static path to dist
