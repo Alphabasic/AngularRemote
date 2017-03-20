@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { PostsService } from '../posts.service';
 import { RouterModule } from '@angular/router';
+
+import { Post } from '../post';
 
 @Component({
 	selector: 'app-posts',
@@ -9,6 +11,10 @@ import { RouterModule } from '@angular/router';
 })
 export class PostsComponent implements OnInit {
 	posts: any = [];
+	
+	@Input()
+	post: Post;
+	
 	constructor(private postsService: PostsService) { }
 
 	ngOnInit() {
@@ -19,5 +25,10 @@ export class PostsComponent implements OnInit {
 		this.postsService
 			.getAllPosts()
 			.subscribe(posts => {this.posts = posts;})
+	}
+
+	save(): void {
+		// console.log(this)
+		this.postsService.update(this.post)
 	}
 }

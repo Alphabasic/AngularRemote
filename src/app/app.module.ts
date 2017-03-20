@@ -6,7 +6,8 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
-import { PostsService } from './posts.service'; 
+import { PostsService } from './posts.service';
+import { PostComponent } from './post/post.component'; 
 
 // Define the routes
 const ROUTES = [
@@ -18,13 +19,18 @@ const ROUTES = [
   {
     path: 'posts',
     component: PostsComponent
+  },
+  {
+    path: 'post/:id',
+    component: PostComponent
   }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    PostsComponent
+    PostsComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

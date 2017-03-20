@@ -18,4 +18,24 @@ export class PostsService {
     return this.http.get(this.postUrl)
       .map(res => res.json());
   }
+
+  getPost(id: number): Promise<Post> {
+    const url = `${this.postUrl}/${id}`;
+    return this.http.get(url)
+      .toPromise()
+      .then(response => response.json().data as Post)
+      .catch(this.handleError);
+  }
+  update(post: Post): Promise<Post> {
+    const url = `${this.postUrl}/${post.id}`
+    return this.http.put(url, JSON.stringify(post), {headers: this.headers})
+            .toPromise()
+            .then(() => post)
+            .catch(this.handleError)
+  }
+
+  private handleError(error: any): Promise<any> {
+    console.error('An error occurred', error); // for demo purposes only
+    return Promise.reject(error.message || error);
+  }
 }
