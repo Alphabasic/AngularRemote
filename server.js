@@ -17,11 +17,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
+// set cross origin request headers for api end points
 app.use('/api', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   res.header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-  // res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
 });
 
