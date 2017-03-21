@@ -36,9 +36,36 @@ router.put('/posts/:post_id', (req, res) => {
         {
           title: req.body.title || "",
           body: req.body.body || ""
-        },
-        { upsert: true }
-      ))
+        }
+      )
+    ).then(
+      post => res.status(200).send(post),
+      err => res.status(500).send(err)
+    )
 })
+
+router.put('/posts', (req, res) => {
+  Mongo.connect(conn)
+    .then( db => db.collection('posts').insertOne(
+        {
+          title: req.body.title || "",
+          body: req.body.body || ""
+        }
+      )
+    ).then(
+      post => res.status(200).send(post.ops[0]),
+      err => res.status(500).send(err)
+    )
+})
+
+router.delete('/posts/:post_id', (req, res) => {
+  Mongo.connect(conn)
+    .then( db => db.collection('posts').deleteOne({"_id": new ObjectId(req.params.post_id)})
+    ).then(
+      post => res.status(200).send(post),
+      err => res.status(500).send(err)
+    )
+})
+
 
 module.exports = router;

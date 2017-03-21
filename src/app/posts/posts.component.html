@@ -1,11 +1,22 @@
 <div class="container">
-  <!--<div class="row" *ngFor="let post of posts">
-    <div class="card card-block">
-      <h4 class="card-title">{{ post.title }}</h4>
-      <input [(ngModel)]="post.body" />
-      <a href="#" class="card-link">Card link</a>
-      <button (click)="save()">Save</button>
-    </div>
-  </div>-->
-  <app-post *ngFor="let post of posts" [post]="post"></app-post>
+  <div class="row">
+     <div class="card card-block">
+      <div class="card-block"><label>Title</label><input #title></div>
+      <div class="card-block"><label>Body</label><input #body></div>
+      <button 
+        (click)="
+          add(title.value, body.value); 
+          title.value = ''; 
+          body.value=''
+        ">
+        Add
+      </button>
+     </div>
+  </div>
+  <app-post 
+    *ngFor="let post of posts" 
+    [post]="post"
+    (onDelete)="deletePost($event)">
+
+  </app-post>
 </div>

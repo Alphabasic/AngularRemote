@@ -2,7 +2,7 @@
   <div class="card card-block">
     <h4 class="card-title">{{ post.title }}</h4>
     <input [(ngModel)]="post.body" />
-    <a href="#" class="card-link">Card link</a>
+    <button (click)="deletePost(post)">Delete</button>
     <button (click)="save()">Save</button>
   </div>
 </div>

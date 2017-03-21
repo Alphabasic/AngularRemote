@@ -19,18 +19,35 @@ export class PostsService {
       .map(res => res.json());
   }
 
-  getPost(id: number): Promise<Post> {
-    const url = `${this.postUrl}/${id}`;
+  getPost(_id: string): Promise<Post> {
+    const url = `${this.postUrl}/${_id}`;
     return this.http.get(url)
       .toPromise()
-      .then(response => response.json().data as Post)
+      .then(response => response.json() as Post)
       .catch(this.handleError);
   }
+  
   update(post: Post): Promise<Post> {
     const url = `${this.postUrl}/${post._id}`
     return this.http.put(url, JSON.stringify(post), {headers: this.headers})
             .toPromise()
             .then(() => post)
+            .catch(this.handleError);
+  }
+
+  createPost(title:string, body:string): Promise<Post> {
+    const postJson = {'title': title, 'body': body};
+    return this.http.put(this.postUrl, JSON.stringify(postJson), {headers: this.headers})
+            .toPromise()
+            .then(res => res.json() as Post)
+            .catch(this.handleError);
+  }
+
+  deletePost(_id: string): Promise<void>{
+    const url = `${this.postUrl}/${_id}`;
+    return this.http.delete(url, {headers: this.headers})
+            .toPromise()
+            .then(() => null)
             .catch(this.handleError)
   }
 

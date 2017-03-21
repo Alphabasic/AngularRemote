@@ -1,5 +1,5 @@
 import 'rxjs/add/operator/switchMap';
-import { Component, OnInit, Input }      from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 
@@ -7,13 +7,14 @@ import { PostsService } from '../posts.service';
 import { Post } from '../post';
 
 @Component({
+	moduleId: module.id,
 	selector: 'app-post',
 	templateUrl: './post.component.html',
 	styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
-	@Input()	
-	post: Post;
+	@Input() post: Post;
+	@Output() onDelete = new EventEmitter();
 	
 	constructor(
 		private postsService: PostsService,
@@ -27,12 +28,16 @@ export class PostComponent implements OnInit {
 
 	getPost(): void {
    	 this.route.params
-      .switchMap((params: Params) => this.postsService.getPost(+params['_id']))
+      .switchMap((params: Params) => this.postsService.getPost(this.post._id))
       .subscribe(post => this.post = post);
 	}
 
 	save(): void {
-		console.log(this.post)
 		this.postsService.update(this.post)
+	}
+
+	deletePost(post:Post):void{
+		this.postsService.deletePost(post._id)
+		this.onDelete.emit(post._id)
 	}
 }
