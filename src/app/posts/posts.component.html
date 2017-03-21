@@ -13,10 +13,5 @@
       </button>
      </div>
   </div>
-  <app-post 
-    *ngFor="let post of posts" 
-    [post]="post"
-    (onDelete)="deletePost($event)">
-
-  </app-post>
+  <app-post *ngFor="let post of posts" [post]="post" (onDelete)="deletePost($event)"></app-post>
 </div>
