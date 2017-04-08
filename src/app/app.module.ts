@@ -7,7 +7,9 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 import { PostsService } from './posts.service';
-import { PostComponent } from './post/post.component'; 
+import { PostComponent } from './post/post.component';
+import { CommentsComponent } from './comments/comments.component';
+import { CommentComponent } from './comment/comment.component'; 
 
 // Define the routes
 const ROUTES = [
@@ -30,7 +32,9 @@ const ROUTES = [
   declarations: [
     AppComponent,
     PostsComponent,
-    PostComponent
+    PostComponent,
+    CommentsComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
