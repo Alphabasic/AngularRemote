@@ -29,7 +29,6 @@ module.exports = function(router){
             )
         })
         .delete((req, res) => {
-            console.log(req.params)
             Mongo.connect(conn)
                 .then( db => db.collection('posts').deleteOne({"_id": new ObjectId(req.params.post_id)})
             ).then(
