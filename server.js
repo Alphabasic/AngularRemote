@@ -5,7 +5,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 
 // Get our API routes
-const api = require('./server/routes/api');
+// const api = require('./server/api');
 const app = express();
 
 // Parsers for POST data
@@ -25,7 +25,8 @@ app.use('/api', function(req, res, next) {
 
 
 // Set our api routes
-app.use('/api', api);
+require('./server/routes/index')(app);
+// app.use('/api', api);
 
 // Catch all other routes and return the index file
 // app.get('*', (req, res) => {

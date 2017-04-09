@@ -27,22 +27,21 @@ export class CommentsService {
   }
 
   updateComment(comment: Comment): Promise<Comment> {
-    const url = `${this.postUrl}/${comment._postId}/comments/${comment._id}`;
     return this.http.put(this.makeUrl(comment), JSON.stringify(comment), {headers: this.headers})
-        .toPromise()
-        .then(res => res.json() as Comment)
-        .catch(this.handleError) 
+            .toPromise()
+            .then(res => res.json() as Comment)
+            .catch(this.handleError) 
   }
 
   createComment(_postId:string, title:string, body:string): Promise<Comment> {
-    const postJson = {'title': title, 'body': body};
-    return this.http.put(this.postUrl, JSON.stringify(postJson), {headers: this.headers})
-          .toPromise()
-          .then(res => res.json() as Comment)
-          .catch(this.handleError);
+    const commentJson = {'title': title, 'body': body};
+    return this.http.put(this.postUrl, JSON.stringify(commentJson), {headers: this.headers})
+            .toPromise()
+            .then(res => res.json() as Comment)
+            .catch(this.handleError);
   }
 
-   deleteComment(comment: Comment): Promise<void>{
+  deleteComment(comment: Comment): Promise<void>{
     return this.http.delete(this.makeUrl(comment), {headers: this.headers})
             .toPromise()
             .then(() => null)
