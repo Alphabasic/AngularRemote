@@ -1,3 +1,4 @@
+import 'rxjs/add/operator/switchMap';
 import { Component, OnInit, EventEmitter, Input, Output }      from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
@@ -5,6 +6,8 @@ import { Location }               from '@angular/common';
 import { CommentsService } from '../comments.service'
 
 import { Comment } from '../comment';
+import { Post } from '../post';
+
 
 @Component({
   moduleId: module.id,
@@ -13,6 +16,7 @@ import { Comment } from '../comment';
   styleUrls: ['./comment.component.css']
 })
 export class CommentComponent implements OnInit {
+  @Input() post: Post;
   @Input() comment: Comment;
 
   constructor(
@@ -23,7 +27,9 @@ export class CommentComponent implements OnInit {
 
 
   ngOnInit() {
-    console.log('hi');
+    this.route.params
+      .switchMap((params: Params) => this.commentsService.getComment(this.post._id, this.comment))
+      .subscribe(comment => this.comment = comment);
   }
 
 }
