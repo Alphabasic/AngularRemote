@@ -6,7 +6,7 @@
     <button (click)="save()">Save</button>
     <div class="card card-block">
      <h4 class="card-title">Comments</h4>
-     <app-comment *ngFor="let comment of post.comments" [comment]="comment"></app-comment>
+     <app-comment *ngFor="let comment of post.comments" [comment]="comment" [post]="post"></app-comment>
     </div>
   </div>
 </div>
