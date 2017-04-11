@@ -24,7 +24,6 @@ export class PostComponent implements OnInit {
 
 	ngOnInit() {
 		this.getPost();
-		console.log(this.post)
 	}
 
 	getPost(): void {
