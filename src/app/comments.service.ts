@@ -19,15 +19,15 @@ export class CommentsService {
       .map(res => res.json());
   }
 
-  getComment(comment: Comment): Promise<Comment> {
-    return this.http.get(this.makeUrl(comment))
+  getComment(postId: string, comment: Comment): Promise<Comment> {
+    return this.http.get(this.makeUrl(postId, comment))
       .toPromise()
       .then(response => response.json() as Comment)
       .catch(this.handleError);
   }
 
-  updateComment(comment: Comment): Promise<Comment> {
-    return this.http.put(this.makeUrl(comment), JSON.stringify(comment), {headers: this.headers})
+  updateComment(postId: string, comment: Comment): Promise<Comment> {
+    return this.http.put(this.makeUrl(postId, comment), JSON.stringify(comment), {headers: this.headers})
             .toPromise()
             .then(res => res.json() as Comment)
             .catch(this.handleError) 
@@ -41,8 +41,8 @@ export class CommentsService {
             .catch(this.handleError);
   }
 
-  deleteComment(comment: Comment): Promise<void>{
-    return this.http.delete(this.makeUrl(comment), {headers: this.headers})
+  deleteComment(postId: string, comment: Comment): Promise<void>{
+    return this.http.delete(this.makeUrl(postId, comment), {headers: this.headers})
             .toPromise()
             .then(() => null)
             .catch(this.handleError)
@@ -53,7 +53,7 @@ export class CommentsService {
     return Promise.reject(error.message || error);
   }
 
-  private makeUrl(comment: Comment): string {
-    return `${this.postUrl}/${comment._postId}/comments/${comment._id}`
+  private makeUrl(postId:string, comment: Comment): string {
+    return `${this.postUrl}/${postId}/comments/${comment._id}`
   }
 }
