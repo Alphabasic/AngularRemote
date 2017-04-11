@@ -28,10 +28,15 @@ export class CommentsComponent implements OnInit {
     this.getComments();
   }
 
-  getComments(): void {
-   	 this.route.params
-      .switchMap((params: Params) => this.commentsService.getAllPostComments(this.post._id))
-      .subscribe(comments => this.comments = comments);
-	}
+  // getComments(): void {
+  //  	 this.route.params
+  //     .switchMap((params: Params) => this.commentsService.getAllPostComments(this.post._id))
+  //     .subscribe(comments => this.comments = comments);
+	// }
 
+  	getComments(): void {
+		this.commentsService
+			.getAllPostComments(this.post._id)
+			.subscribe(comments => this.comments = comments);
+	}
 }

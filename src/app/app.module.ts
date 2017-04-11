@@ -26,6 +26,10 @@ const ROUTES = [
   {
     path: 'post/:id',
     component: PostComponent
+  },
+  {
+    path: 'comment/:id',
+    component: CommentComponent
   }
 ];
 

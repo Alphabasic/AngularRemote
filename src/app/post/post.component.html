@@ -4,6 +4,9 @@
     <input [(ngModel)]="post.body" />
     <button (click)="deletePost(post)">Delete</button>
     <button (click)="save()">Save</button>
-    <!--<app-comments [post]="post"></app-comments>-->
+    <div class="card card-block">
+     <h4 class="card-title">Comments</h4>
+     <app-comment *ngFor="let comment of post.comments" [comment]="comment"></app-comment>
+    </div>
   </div>
 </div>
