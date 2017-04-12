@@ -72,6 +72,7 @@ router.route('/:post_id/comments/')
       //         items => res.status(200).json(items), 
       //         err => res.status(500).send(err)
       //     );
+      console.log('/comments')
       res.status(200)
         .send(JSON.stringify([{
           '_id': new ObjectId(),
@@ -82,16 +83,22 @@ router.route('/:post_id/comments/')
   })
   .put((req, res) => {
     Mongo.connect(conn)
-      .then( db => db.collection('posts').insertOne(
-          {
-          title: req.body.title || "",
-          body: req.body.body || ""
-          }
-      )
-      ).then(
-          post => res.status(200).send(post.ops[0]),
-          err => res.status(500).send(err)
-      )
+      res.status(200)
+        .send(JSON.stringify({
+          '_id': new ObjectId(),
+          'body': 'comment',
+          'author': 'comment'
+        }))
+    //   .then( db => db.collection('posts').insertOne(
+    //       {
+    //       title: req.body.title || "",
+    //       body: req.body.body || ""
+    //       }
+    //   )
+    //   ).then(
+    //       post => res.status(200).send(post.ops[0]),
+    //       err => res.status(500).send(err)
+    //   )
   })
 
 router.route('/:post_id/comments/:comment_id')
