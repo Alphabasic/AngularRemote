@@ -6,7 +6,14 @@
     <button (click)="save()">Save</button>
     <div class="card card-block">
      <h4 class="card-title">Comments</h4>
-     <app-comment *ngFor="let comment of post.comments" [comment]="comment" [post]="post"></app-comment>
+     
+     <app-comment 
+      *ngFor="let comment of post.comments" [comment]="comment" [post]="post"></app-comment>
+      <span *ngIf="post.comments?.length === 0 || ! post.hasOwnProperty('comments')">No comments</span>
+      <hr>
+      <input #commentBody>
+      <br>
+      <button (click)="addComment(commentBody.value)">Add Comment</button>
     </div>
   </div>
 </div>
