@@ -15,7 +15,7 @@ export class CommentsService {
 
   // Get all posts from the API
   getAllPostComments(_postId: string) {
-    return this.http.get(`${this.postUrl}/${_postId}/comments`)
+    return this.http.get(this.makeUrl(_postId))
       .map(res => res.json());
   }
 
@@ -35,7 +35,7 @@ export class CommentsService {
 
   createComment(_postId:string, body:string, author:string): Promise<Comment> {
     const commentJson = {'body': body, 'author': author};
-    return this.http.put(`${this.postUrl}/${_postId}/comments`, JSON.stringify(commentJson), {headers: this.headers})
+    return this.http.put(this.makeUrl(_postId), JSON.stringify(commentJson), {headers: this.headers})
             .toPromise()
             .then(res => res.json() as Comment)
             .catch(this.handleError);
@@ -53,7 +53,7 @@ export class CommentsService {
     return Promise.reject(error.message || error);
   }
 
-  private makeUrl(postId:string, comment: Comment): string {
-    return `${this.postUrl}/${postId}/comments/${comment._id}`
+  private makeUrl(postId:string, comment?: Comment): string {
+    return `${this.postUrl}/${postId}/comments/${comment ? comment._id : ''}`
   }
 }
