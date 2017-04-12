@@ -29,7 +29,7 @@ export class PostsComponent implements OnInit {
 			.then(post => this.posts.push(post))
 	}
 
-	deletePost(deletedId:string) {
+	deletePost(deletedId:string): void {
 		this.posts = this.posts.filter(p => p._id !== deletedId);
 	}
 }

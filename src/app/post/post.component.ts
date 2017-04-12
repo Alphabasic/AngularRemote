@@ -4,7 +4,10 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { Location }               from '@angular/common';
 
 import { PostsService } from '../posts.service';
+import { CommentsService } from '../comments.service'
+
 import { Post } from '../post';
+import { Comment } from '../comment';
 
 @Component({
 	moduleId: module.id,
@@ -18,6 +21,7 @@ export class PostComponent implements OnInit {
 	
 	constructor(
 		private postsService: PostsService,
+		private commentsService: CommentsService,
 	    private route: ActivatedRoute,
 	    private location: Location
 	) {}
@@ -39,5 +43,15 @@ export class PostComponent implements OnInit {
 	deletePost(post:Post):void{
 		this.postsService.deletePost(post._id)
 		this.onDelete.emit(post._id)
+	}
+
+	addComment(commentBody:string): void {
+		if(!commentBody){return;}
+		this.commentsService.createComment(this.post._id, commentBody, 'sam')
+			.then(comment => {
+				this.post.hasOwnProperty('comments') 
+					? this.post.comments.push(comment)
+					: this.post.comments = [comment]
+				})
 	}
 }
