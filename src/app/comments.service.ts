@@ -33,9 +33,9 @@ export class CommentsService {
             .catch(this.handleError) 
   }
 
-  createComment(_postId:string, title:string, body:string): Promise<Comment> {
-    const commentJson = {'title': title, 'body': body};
-    return this.http.put(this.postUrl, JSON.stringify(commentJson), {headers: this.headers})
+  createComment(_postId:string, body:string, author:string): Promise<Comment> {
+    const commentJson = {'body': body, 'author': author};
+    return this.http.put(`${this.postUrl}/${_postId}/comments`, JSON.stringify(commentJson), {headers: this.headers})
             .toPromise()
             .then(res => res.json() as Comment)
             .catch(this.handleError);
