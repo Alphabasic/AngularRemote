@@ -27,9 +27,9 @@ export class CommentComponent implements OnInit {
 
 
   ngOnInit() {
-    this.route.params
-      .switchMap((params: Params) => this.commentsService.getComment(this.post._id, this.comment))
-      .subscribe(comment => this.comment = comment);
+    // this.route.params
+    //   .switchMap((params: Params) => this.commentsService.getComment(this.post._id, this.comment))
+    //   .subscribe(comment => this.comment = comment);
   }
 
 }
