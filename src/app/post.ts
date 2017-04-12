@@ -1,6 +1,6 @@
 import {Comment} from './comment';
 
-export class Post {
+export interface Post {
     _id: string;
     title: string;
     body: string;
